@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewData["Title"] = "Список услуг";
+}
+
+    <h1>Список кружков</h1>
+<table class="table">
+    <tr>
+        <td>Наименование кружка</td>
+        <td>Цена</td>
+    </tr>
+    @foreach (var service in ViewBag.services)
+    {
+        <tr>
+            <td>@service.ServiceName</td>
+            <td>@service.Price</td>
+        </tr>
+    }
+</table>

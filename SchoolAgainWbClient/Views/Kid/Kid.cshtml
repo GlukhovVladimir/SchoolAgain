@@ -1,0 +1,25 @@
+﻿@model SchoolAgainWbClient.Models.KidModel
+@{
+    ViewData["Title"] = "Мой ребенок";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@using (Html.BeginForm("Kid", "Kid"))
+{
+    <p>
+        Имя:<br>
+        @Html.TextBoxFor(x => x.KidName)<br>
+        Вид: <br>
+        @Html.TextBoxFor(x => x.Height)<br>
+        Порода:<br>
+        @Html.TextBoxFor(x => x.Free)<br>
+        Возраст:<br>
+        @Html.TextBoxFor(x => x.Age)<br>
+        Пол:<br>
+        @Html.TextBoxFor(x => x.Gender)
+    </p>
+    <input type="submit" value="Добавить" />
+    @Html.ValidationSummary()
+}
+

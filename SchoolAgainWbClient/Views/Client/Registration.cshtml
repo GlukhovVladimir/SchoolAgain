@@ -1,0 +1,25 @@
+﻿@model SchoolAgainWbClient.Models.RegistrationModel
+
+@{
+    ViewData["Title"] = "Регистрация";
+}
+<h1>@ViewData["Title"]</h1>
+@using (Html.BeginForm())
+{
+    <p>
+        Логин:<br>
+        @Html.TextBoxFor(x => x.Login)<br>
+        Email: <br>
+        @Html.TextBoxFor(x => x.Email)<br>
+        Пароль:<br>
+        @Html.TextBoxFor(x => x.Password)<br>
+        Телефон:<br>
+        @Html.TextBoxFor(x => x.Phone)<br>
+        ФИО:<br>
+        @Html.TextBoxFor(x => x.ClientFIO)
+    </p>
+    <input type="submit" value="Зарегистрироваться" />
+    @Html.ValidationSummary()
+}
+
+

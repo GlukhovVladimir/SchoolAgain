@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Блокировка";
+}
+    <h1>Блокировка</h1>
+
+@using (Html.BeginForm())
+{
+    <table class="table">
+        <tr>
+            <td>Логин</td>
+            <td>Клиент</td>
+            <td>Почта</td>
+            <td>Блокировка</td>
+            <td>Заблокировать/разблокировать</td>
+        </tr>
+        @foreach (var client in ViewBag.Clients)
+        {
+            <tr>
+                <td>@client.Login</td>
+                <td>@client.ClientFIO</td>
+                <td>@client.Email</td>
+                <td>
+                    @client.Block
+                </td>
+                <td>
+                    <a href="/Admin/Block/@client.Id">Заблокировать/разблокировать</a>
+                </td>
+            </tr>
+        }
+    </table>
+}

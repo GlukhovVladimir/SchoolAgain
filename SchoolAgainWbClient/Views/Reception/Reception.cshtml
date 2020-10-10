@@ -1,0 +1,97 @@
+﻿@model ReportModel
+@{
+    ViewData["Title"] = "Запись на прием";
+}
+
+<h1>Запись на прием</h1>
+<hr />
+<p> <strong> <a asp-area="" asp-controller="Reception" asp-action="CreateReception">Записаться</a></strong></p>
+<hr />
+<h1>Все записи:</h1>
+
+@foreach (var reception in ViewBag.receptions)
+{
+    <p><strong>Номер: @reception.Id </strong></p>
+    <p>Дата: @reception.DateCreate</p>
+    <p>Статус: @reception.ReceptionStatus</p>
+    <p>Цена: @reception.TotalSum</p>
+    <p><strong>Услуги:</strong></p>
+    <table class="table">
+        <tr>
+            <td>Наименование</td>
+            <td>Цена</td>
+            <td>Количество занятий</td>
+        </tr>
+        @foreach (var service in reception.ReceptionServices)
+        {
+            <tr>
+                <td>@service.ServiceName</td>
+                <td>@service.Price</td>
+                <td>@service.Count</td>
+            </tr>
+        }
+    </table>
+    if (reception.ReceptionStatus != SchoolAgainBusinessLogic.Enums.ReceptionStatus.Оформлен && ViewBag.Payments != null)
+    {
+        <p>Платежи:</p>
+        <table class="table">
+            <tr>
+                <td>Дата</td>
+                <td>Сумма</td>
+            </tr>
+            @foreach (var payment in ViewBag.Payments)
+            {
+                if (payment.ReceptionId == reception.Id)
+                {
+                    <tr>
+                        <td>@payment.DatePayment</td>
+                        <td>@payment.Sum</td>
+                    </tr>
+                }
+            }
+        </table>
+    }
+    <hr />
+    if (reception.ReceptionStatus == SchoolAgainBusinessLogic.Enums.ReceptionStatus.Оплачен)
+    {
+        <p><strong>Полностью оплачено</strong></p>
+        <hr />
+    }
+    else
+    {
+        if (reception.ReceptionStatus == SchoolAgainBusinessLogic.Enums.ReceptionStatus.ОплаченЧастично)
+        {
+            <p><strong>К оплате: @reception.LeftSum</strong></p>
+            <hr />
+
+        }
+        <p>
+            <a href="/Reception/Payment/@reception.Id">Оплатить</a>
+        </p>
+    }
+    <p>
+        <a href="/Reception/SendWordReport/@reception.Id">Отправить список услуг в формате .docx</a>
+        </p>
+    <p>
+        <a href="/Reception/SendExcelReport/@reception.Id">Отправить список услуг в формате .xslx</a>
+    </p>
+}
+<hr />
+@using (Html.BeginForm())
+{
+    <p>
+        <strong> Выберите даты для отображения отчета по приемам и платежам:</strong>
+</p>
+    <p>
+        От: @Html.EditorFor(model => model.From)
+    </p>
+    <p>
+        До: @Html.EditorFor(model => model.To)
+    </p>
+    <p>
+        @Html.EditorFor(model => model.SendMail) на почту
+    </p>
+    <p>
+        <button type="submit">Отправить</button>
+    </p>
+    }

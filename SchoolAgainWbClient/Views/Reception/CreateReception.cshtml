@@ -1,0 +1,32 @@
+﻿@model SchoolAgainWbClient.Models.CreateReceptionModel
+@using SchoolAgainWbClient.Models
+
+@{
+    ViewData["Title"] = "Запись на кружок";
+}
+<h1>@ViewData["Title"]</h1>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true, "", new { @style = "color: red" })
+    <p>
+        Услуги:
+    </p>
+    <table class="table">
+        <tr>
+            <td>Наименование</td>
+            <td>Цена</td>
+            <td>Количество занятий</td>
+        </tr>
+        @foreach (SchoolAgainBusinessLogic.ViewModels.ServiceViewModel service in ViewBag.ReceptionServices)
+        {
+            <tr>
+                <td>@service.ServiceName</td>
+                <td>@service.Price</td>
+                <td><input type="number" name="Model.ReceptionServices[@service.Id]" value="0" min="0" /></td>
+            </tr>
+        }
+    </table>
+    <button type="submit">Записаться</button>
+}
+

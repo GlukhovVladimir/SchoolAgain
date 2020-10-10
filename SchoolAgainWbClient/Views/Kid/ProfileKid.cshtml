@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["Title"] = "Мои дети";
+}
+
+<h1>@ViewData["Title"]</h1>
+<hr />
+<p> <strong> <a asp-area="" asp-controller="Kid" asp-action="Kid">Добавить</a></strong></p>
+
+<table class="table">
+    <tr>
+        <td>Имя</td>
+        <td>Возраст</td>
+        <td>Рост</td>
+        <td>Льготник?</td>
+        <td>Пол</td>
+    </tr>
+    @foreach (var kid in ViewBag.kids)
+    {
+        <tr>
+            <td>@kid.KidName</td>
+            <td>@kid.Age</td>
+            <td>@kid.Height</td>
+            <td>@kid.Free</td>
+            <td>@kid.Gender</td>
+        </tr>
+    }
+</table>
+
+
+
+
+
+

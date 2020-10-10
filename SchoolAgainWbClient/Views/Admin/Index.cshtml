@@ -1,0 +1,16 @@
+﻿@model SchoolAgainWbClient.Models.AdminModel
+
+@{
+    ViewData["Title"] = "Авторизация";
+}
+    <h1>@ViewData["Title"]</h1>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary()
+    <p>
+        Пароль:<br>
+        @Html.EditorFor(x => x.Password)
+    </p>
+    <button type="submit" >Войти</button>
+}

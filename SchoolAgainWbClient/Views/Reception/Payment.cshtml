@@ -1,0 +1,13 @@
+﻿@model PaymentModel
+
+    <h1>Оплатить услуги №@ViewBag.Reception.Id</h1>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary()
+
+    <p>Остаток: @ViewBag.LeftSum</p>
+    <p>Сумма: <input type="number" min="1" max="@ViewBag.LeftSum" name="Model.Sum" /></p>
+    <input type="hidden" name="Model.ReceptionId" value="@((int)ViewBag.Reception.Id)" />
+    <button type="submit" >Оплатить</button>
+}
